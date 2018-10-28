@@ -29,17 +29,17 @@ class TestFROM(object):
     ]
 
     @pytest.mark.parametrize("params, result", CORRECT_PARAMS)
-    def passes_with_correct_params(self, params: dict, result: str):
+    def test_passes_with_correct_params(self, params: dict, result: str):
         """Test that FROM doesn't fail with correct params."""
         cmd = commands.From(**params)
         assert str(cmd) == result
 
-    def raises_error_with_tag_and_digest(self):
+    def test_raises_error_with_tag_and_digest(self):
         """Test that FROM raises a RuntimeError when both tag and digest are given."""
         with pytest.raises(RuntimeError):
             commands.From(base_image="test_image", tag="stable", digest="6dae7")
 
-    def raises_error_with_no_base_image(self):
+    def test_raises_error_with_no_base_image(self):
         """Test that FROM raises a TypeError when no base_image is provided."""
         with pytest.raises(TypeError) as exc:
             commands.From()
